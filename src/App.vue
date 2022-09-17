@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div id="app" style="background-color: #76a933;">
     <router-view></router-view>
   </div>
 </template>
@@ -23,6 +23,18 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  background-image: radial-gradient(
+    1250px circle at 0% 0%, 
+    hsl(110, 41%, 35%) 15%, 
+    hsl(110, 41%, 30%) 35%, 
+    hsl(110, 41%, 20%) 75%, 
+    transparent 100%
+    ), 
+    radial-gradient(
+      1250px circle at 100% 100%, 
+      hsl(110, 41%, 45%) 15%, 
+      hsl(110, 41%, 30%) 35%, 
+      hsl(110, 41%, 20%) 75%, 
+      transparent 100%);
 }
 </style>
