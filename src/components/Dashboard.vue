@@ -1,26 +1,28 @@
 <template>
     <Layout title="Dashboard"></Layout>
     <br />
-    <button v-on:click="addStudent" class="my-button" style="margin:10px 0 10px 0;">Add New Student</button>
-    <table class="basic-table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Roll</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="std in students" :key="std.studentId">
-                <td>{{std.name}}</td>
-                <td>{{std.roll}}</td>
-                <td>
-                    <button v-on:click="editStudent(std.studentId)" class="my-button" style="float:left;">Edit</button>
-                    <button v-on:click="deleteStudent(std.studentId)" class="my-button" style="float:left;margin-right:5px;">Delete</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="container">
+        <button v-on:click="addStudent" class="my-button" style="margin:10px 0 10px 0;">Add New Student</button>
+        <table class="basic-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Roll</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="std in students" :key="std.studentId">
+                    <td>{{std.name}}</td>
+                    <td>{{std.roll}}</td>
+                    <td>
+                        <button v-on:click="editStudent(std.studentId)" class="my-button" style="float:left;">Edit</button>
+                        <button v-on:click="deleteStudent(std.studentId)" class="my-button" style="float:left;margin-right:5px;">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </template>
 
 <script>

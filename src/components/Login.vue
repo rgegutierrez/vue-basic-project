@@ -1,46 +1,47 @@
 <template>
-    <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col col-xl-10">
-                <div class="card box" style="border-radius: 1rem;">
-                    <div class="row g-0">
-                        <div class="col-md-6 col-lg-5 d-none d-md-block vl">
-                            <div class="row g-0">
-                                <div class="col-md-12 img-container">
-                                    <img src="https://www.energie.cl/sites/default/files/2021-04/logo_fpc.png" alt="login form" class="img-fluid" style="margin-top: 5rem;max-width: 85% !important;" />
-                                </div>
-                                <div class="col-md-12 img-container">
-                                    <img src="http://www.singular.cl/wp-content/uploads/15-logo-FPC.jpg" alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
-                                </div>
+    <div class="row d-flex justify-content-center align-items-center h-100 background">
+        <div class="col col-xl-10">
+            <div class="card box" style="border-radius: 1rem;">
+                <div class="row g-0">
+                    <div class="col-md-6 col-lg-5 d-none d-md-block vl">
+                        <div class="row g-0">
+                            <div class="col-md-12 img-container">
+                                <img src="https://www.energie.cl/sites/default/files/2021-04/logo_fpc.png" alt="login form" class="img-fluid" style="margin-top: 5rem;max-width: 85% !important;" />
+                            </div>
+                            <div class="col-md-12 img-container">
+                                <img src="http://www.singular.cl/wp-content/uploads/15-logo-FPC.jpg" alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
                             </div>
                         </div>
-                        <div class="col-md-6 col-lg-7 d-flex align-items-center">
-                            <div class="card-body p-4 p-lg-5 text-black">
-                                <form>
-                                    <h1 class="fw-bold mb-3 pb-3" style="letter-spacing: 1px;">Venta Interna de FPC</h1>
-                                    <!-- <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5> -->
-                
-                                    <div class="form-outline mb-4">
-                                        <label for="username" class="form-label">Ingrese su Rut</label>
-                                        <input v-model="user.username" v-bind:readonly="isReadOnly" ref="username" type="text" class="form-control form-control-lg" :class="valid_input_rut" placeholder="12345678-9" name="username" />
-                                        <small id="emailHelp" class="form-text" :class="valid_span_rut">{{validation_rut}}</small>
+                    </div>
+                    <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                        <div class="card-body p-4 p-lg-5 text-black">
+                            <form>
+                                <h1 class="fw-bold mb-3 pb-3" style="letter-spacing: 1px;">Venta Interna de FPC</h1>
+                                <!-- <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5> -->
+            
+                                <div class="form-outline mb-4">
+                                    <label for="username" class="form-label">Ingrese su Rut</label>
+                                    <input v-model="user.username" v-bind:readonly="isReadOnly" ref="username" type="text" class="form-control form-control-lg" :class="valid_input_rut" placeholder="12345678-9" name="username" />
+                                    <small class="form-text" :class="valid_span_rut">{{validation_rut}} {{this.user.name}}</small>
+                                </div>
+            
+                                <div v-show='toggle' class="form-outline mb-4">
+                                    <label for="pwd">Código Activación</label>
+                                    <input v-model="user.password" ref="pwd" type="password" class="form-control form-control-lg" placeholder="123456" name="pwd" />
+                                    <div class="alert alert-info mt-1" role="alert">
+                                        El correo con el código de activación fue enviado a <strong>{{this.user.email}}</strong>
                                     </div>
-                
-                                    <div v-show='toggle' class="form-outline mb-4">
-                                        <label for="pwd">Código Activación</label>
-                                        <input v-model="user.password" ref="pwd" type="password" class="form-control form-control-lg" placeholder="123456" name="pwd" />
-                                        <div class="bd-callout bd-callout-warning">
-                                            <p>We <strong>highly recommend</strong> custom validation styles as native browser defaults are not announced to screen readers.</p>
-                                        </div>
-                                    </div>
-                
-                                    <div class="pt-1 mb-4">
-                                        <button v-show='!toggle' type="button" class="btn btn-dark btn-lg btn-block" v-on:click="requestActivation">Activar mi ingreso</button>
-                                        <button v-show='toggle' type="button" class="btn btn-success btn-lg btn-block" v-on:click="login">Validar mi ingreso</button>
-                                    </div>
-                                </form>
-                            </div>
+                                </div>
+            
+                                <div class="pt-1 mb-4">
+                                    <button v-show='!toggle' type="button" class="btn btn-dark btn-lg btn-block" v-on:click="requestActivation">Activar mi ingreso</button>
+                                    <button v-show='toggle' type="button" class="btn btn-success btn-lg btn-block" v-on:click="login">Validar mi ingreso</button>
+                                </div>
+                            </form>
                         </div>
+                    </div>
+                    <div class="card-footer">
+                        &copy;{{year}} - Todos los derechos reservados.
                     </div>
                 </div>
             </div>
@@ -58,13 +59,19 @@ export default {
         return{
             user:{
                 username:"",
-                password:""
+                password:"",
+                name: "",
+                email: ""
             },
             toggle: false,
             isReadOnly: false,
             valid_input_rut: "",
             valid_span_rut: "",
+            year: new Date().getFullYear(),
         }
+    },
+    created() {
+        document.title = "Venta Interna FPC";
     },
     computed: {
         validation_rut: function () {
@@ -91,37 +98,44 @@ export default {
         },
         requestActivation(){
             if(this.checkRut()){
-                Swal.showLoading();
+                let loader = this.$loading.show({});
+
                 axios.get(this.hostname + "/api/user/RequestActivation/"+this.user.username)
                     .then(response => {
                         if(response.data.userId > 0){
                             this.toggle = true;
                             this.isReadOnly = true;
-                            Swal.hideLoading();
+                            this.user.email = response.data.email;
+                            this.user.name = response.data.name;
+                            loader.hide();
                         }
                     })
                     .catch(error => {
                         if (error.response) {
                             Swal.hideLoading();
-                            Swal.fire(error.response.data);
+                            loader.hide();
                         }
                     });
             }
         },
         login(){
             if(this.checkRut() && this.checkCode()){
+                let loader = this.$loading.show({});
+
                 axios.get(this.hostname + "/api/user/signin/"+this.user.username+"/"+this.user.password)
                     .then(response => {
                         if(response.data.userId > 0){
                             localStorage.setItem('token', JSON.stringify(response.data.token));
                             response.data.token = "";
                             localStorage.setItem('user', JSON.stringify(response.data));
+                            loader.hide();
                             this.$router.push({name:"Dashboard"});
                         }
                     })
                     .catch(error => {
                         if (error.response) {
                             Swal.fire(error.response.data);
+                            loader.hide();
                         }
                     });
             }
@@ -155,6 +169,10 @@ export default {
 </script>
 
 <style scoped>
+    .background {
+        background-color: #83ae48;
+    }
+
     .img-container {
         min-height: 300px;  
     }
