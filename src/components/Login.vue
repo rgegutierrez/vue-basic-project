@@ -1,14 +1,14 @@
 <template>
-    <div class="row d-flex justify-content-center align-items-center h-100 background">
-        <div class="col col-xl-10">
+    <div class="row m-0 d-flex justify-content-center align-items-center h-100 background">
+        <div class="col col-xl-6">
             <div class="card box" style="border-radius: 1rem;">
-                <div class="row g-0">
+                <div class="row g-0 p-0 m-0">
                     <div class="col-md-6 col-lg-5 d-none d-md-block vl">
                         <div class="row g-0">
-                            <div class="col-md-12 img-container">
+                            <div class="col-md-12 img-container text-center">
                                 <img src="https://www.energie.cl/sites/default/files/2021-04/logo_fpc.png" alt="login form" class="img-fluid" style="margin-top: 5rem;max-width: 85% !important;" />
                             </div>
-                            <div class="col-md-12 img-container">
+                            <div class="col-md-12 img-container text-center">
                                 <img src="http://www.singular.cl/wp-content/uploads/15-logo-FPC.jpg" alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
                             </div>
                         </div>
@@ -16,9 +16,8 @@
                     <div class="col-md-6 col-lg-7 d-flex align-items-center">
                         <div class="card-body p-4 p-lg-5 text-black">
                             <form>
-                                <h1 class="fw-bold mb-3 pb-3" style="letter-spacing: 1px;">Venta Interna de FPC</h1>
-                                <!-- <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5> -->
-            
+                                <h1 class="fw-bold mb-3 pb-3 text-center" style="letter-spacing: 1px;">Venta Interna de FPC</h1>
+                                            
                                 <div class="form-outline mb-4">
                                     <label for="username" class="form-label">Ingrese su Rut</label>
                                     <input v-model="user.username" v-bind:readonly="isReadOnly" ref="username" type="text" class="form-control form-control-lg" :class="valid_input_rut" placeholder="12345678-9" name="username" />
@@ -33,7 +32,7 @@
                                     </div>
                                 </div>
             
-                                <div class="pt-1 mb-4">
+                                <div class="pt-1 mb-4 text-center">
                                     <button v-show='!toggle' type="button" class="btn btn-dark btn-lg btn-block" v-on:click="requestActivation">Activar mi ingreso</button>
                                     <button v-show='toggle' type="button" class="btn btn-success btn-lg btn-block" v-on:click="login">Validar mi ingreso</button>
                                 </div>
@@ -128,6 +127,7 @@ export default {
                             localStorage.setItem('token', JSON.stringify(response.data.token));
                             response.data.token = "";
                             localStorage.setItem('user', JSON.stringify(response.data));
+                            localStorage.setItem('name', JSON.stringify(response.data.name).replaceAll('"', ''));
                             loader.hide();
                             this.$router.push({name:"Dashboard"});
                         }

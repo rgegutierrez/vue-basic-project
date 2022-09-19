@@ -1,6 +1,4 @@
 <template>
-    <Layout title="Dashboard"></Layout>
-    <br />
     <div class="container">
         <button v-on:click="addStudent" class="my-button" style="margin:10px 0 10px 0;">Add New Student</button>
         <table class="basic-table">
@@ -26,7 +24,7 @@
 </template>
 
 <script>
-import Layout from './Layout.vue';
+
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
@@ -36,9 +34,7 @@ export default ({
             students:[]
         }
     },
-    components:{
-        Layout
-    },
+    components:{},
     async created(){
         await this.getStudents();
     },
